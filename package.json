@@ -1,0 +1,44 @@
+{
+  "name": "yarn-lock-cleaner",
+  "version": "1.0.0",
+  "description": "Remove old dependencies from your yarn.lock file",
+  "keywords": [
+    "yarn"
+  ],
+  "bugs": {
+    "url": "https://github.com/fanatid/yarn-lock-cleaner/issues"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kirill Fomichev <fanatid@ya.ru> (https://github.com/fanatid)"
+  ],
+  "files": [
+    "bin",
+    "lib"
+  ],
+  "main": "./lib/index.js",
+  "bin": {
+    "yarn-lock-cleaner": "./bin/yarn-lock-cleaner.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fanatid/yarn-lock-cleaner.git"
+  },
+  "scripts": {
+    "lint": "standard",
+    "test": "npm run lint && npm run unit",
+    "unit": "tape test/index.js"
+  },
+  "dependencies": {
+    "@yarnpkg/lockfile": "^1.0.0",
+    "semver": "^5.4.1",
+    "yargs": "^10.0.3"
+  },
+  "devDependencies": {
+    "standard": "^10.0.2",
+    "tape": "^4.5.1"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  }
+}
