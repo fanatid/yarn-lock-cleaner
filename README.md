@@ -8,11 +8,11 @@
 
 If you checked yarn file sometimes, you can see packages with same name, but with different versions.
 
-This is because this package is dependency in other packages.
+This is because this package is dependency in different packages.
 
 And all is ok, when dependecies are: `package@^1.0.0` & `package@^2.0.0`.
 
-But what if dependencies will be `package@^1.2.3` & `package@^1.2.4` (and second will be installed after first?).
+But what if dependencies will be `package@^1.2.3` & `package@^1.2.4` and package with dependency `^1.2.4` will be installed after first?.
 
 You can see something like this:
 
