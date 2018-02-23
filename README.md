@@ -1,6 +1,6 @@
 # yarn-lock-cleaner
 
-[![Build Status](https://img.shields.io/travis/fanatid/yarn-lock-cleaner/issues.svg?branch=master&style=flat-square)](https://travis-ci.org/fanatid/yarn-lock-cleaner/issues)
+[![Build Status](https://img.shields.io/travis/fanatid/yarn-lock-cleaner.svg?branch=master&style=flat-square)](https://travis-ci.org/fanatid/yarn-lock-cleaner)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
