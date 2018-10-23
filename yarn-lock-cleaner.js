@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const yargs = require('yargs')
-const transform = require('../')
+const transform = require('./')
 
 const { argv } = yargs
   .usage('Usage: $0 [options]')
