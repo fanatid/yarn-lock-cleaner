@@ -1,6 +1,6 @@
 {
   "name": "yarn-lock-cleaner",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Remove old dependencies from your yarn.lock file",
   "keywords": [
     "yarn"
