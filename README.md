@@ -1,46 +1,66 @@
-# yarn-lock-cleaner
+# yarn-lock-dedupe
 
-[![Build Status](https://img.shields.io/travis/fanatid/yarn-lock-cleaner.svg?branch=master&style=flat-square)](https://travis-ci.org/fanatid/yarn-lock-cleaner)
+[![Build Status](https://img.shields.io/travis/fanatid/yarn-lock-dedupe.svg?branch=master&style=flat-square)](https://travis-ci.org/fanatid/yarn-lock-dedupe)
 
 [![js-standard-style](https://cdn.rawgit.com/feross/standard/master/badge.svg)](https://github.com/feross/standard)
 
-**You use it on own risk**
+  - [What this is it?](#what-this-is-it)
+  - [Installation](#installation)
+  - [Examples](#examples)
+    - [Dedupe in JS](#dedupe-in-js)
+    - [Dedupe in CLI](#dedupe-in-cli)
+  - [LICENSE](#license)
 
-If you checked yarn file sometimes, you can see packages with same name, but with different versions.
+## What this is it?
 
-This is because this package is dependency in different packages.
+[Yarn](https://yarnpkg.com/) is awesome. When Yarn was released and introduced lockfile this was fresh gap of air. No need worry about changes in dependencies anymore, they are really freezed. No more hacks with [npm-shrinkwrap.json](https://docs.npmjs.com/files/shrinkwrap.json).
 
-And all is ok, when dependecies are: `package@^1.0.0` & `package@^2.0.0`.
+From other side, when we add new dependency to our project, dependencies of dependencies are not updated. If new version of these dependencies of dependencies was released it means that we can receive two (or more) different versions of dependencies.
 
-But what if dependencies will be `package@^1.2.3` & `package@^1.2.4` and package with dependency `^1.2.4` will be installed after first?.
+In project on which I worked few years ago, currently 3 different [nan](https://github.com/nodejs/nan) versions in `yarn.lock`. That's happened because packages which require `nan` was installed in different time. On first installation latest version was `2.5.1`, on last installation latest was already `2.14.0`. And all they in lockfile, because nothing can be removed from lockfile on adding new dependencies.
 
-You can see something like this:
+I created `yarn-lock-dedupe` for removing such extra dependencies. Lockfile parsed with [@yarnpkg/lockfile](https://www.npmjs.com/package/@yarnpkg/lockfile), from all satisfied dependencies only latest remains in resulted lockfile.
 
-```
-prop-types@^15.5.10:
-  version "15.5.10"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.5.10.tgz#2797dfc3126182e3a95e3dfbb2e893ddd7456154"
-...
-prop-types@^15.5.8:
-  version "15.8.0"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
-```
+## Installation
 
-what can be transformed to
+[npm](https://www.npmjs.com/):
 
-```
-prop-types@^15.5.8, prop-types@^15.5.10:
-  version "15.8.0"
-  resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.6.0.tgz#ceaf083022fc46b4a35f69e13ef75aed0d639856"
+```bash
+npm install https://github.com/fanatid/yarn-lock-dedupe --global
 ```
 
-without any regression (probably).
+[yarn](https://yarnpkg.com/):
 
-## Usage
+```bash
+yarn global add https://github.com/fanatid/yarn-lock-dedupe
+```
 
-- transfor function exported by default
-- CLI
+By default `npm` / `yarn` will install code from `master` branch. If you want specified version, just add some branch name / commit hash / tag and the end of URL. See [Yarn add](https://yarnpkg.com/lang/en/docs/cli/add/) or [npm install](https://docs.npmjs.com/cli/install) for details about installing package from git repo.
 
-## LICENSE
+## Examples
 
-This library is free and open-source software released under the MIT license.
+#### Dedupe in JS
+
+```js
+const fs = require('fs')
+const dedupe = require('yarn-lock-dedupe')
+
+const content = fs.readFileSync('yarn.lock', 'utf8')
+fs.writeFileSync('yarn.lock', dedupe(content), 'utf8')
+```
+
+#### Dedupe in CLI
+
+```bash
+$ yarn-lock-dedupe --help
+Usage: yarn-lock-dedupe [options]
+
+Options:
+  --version       Show version number                                  [boolean]
+  --filename, -f  path to yarn.lock                          [string] [required]
+  --rewrite, -r   rewrite yarn.lock                   [boolean] [default: false]
+  --help, -h      Show help                                            [boolean]
+$ yarn-lock-dedupe -f ./yarn.lock -r
+```
+
+## LICENSE [MIT](LICENSE)
