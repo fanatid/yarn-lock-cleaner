@@ -1,33 +1,33 @@
 {
-  "name": "yarn-lock-cleaner",
+  "name": "yarn-lock-dedupe",
   "version": "1.1.0",
   "description": "Remove old dependencies from your yarn.lock file",
   "keywords": [
     "yarn"
   ],
   "bugs": {
-    "url": "https://github.com/fanatid/yarn-lock-cleaner/issues"
+    "url": "https://github.com/fanatid/yarn-lock-dedupe/issues"
   },
   "license": "MIT",
   "contributors": [
     "Kirill Fomichev <fanatid@ya.ru> (https://github.com/fanatid)"
   ],
   "files": [
-    "index.js",
-    "yarn-lock-cleaner.js"
+    "bin",
+    "lib"
   ],
-  "main": "./index.js",
+  "main": "./lib/index.js",
   "bin": {
-    "yarn-lock-cleaner": "./yarn-lock-cleaner.js"
+    "yarn-lock-dedupe": "./bin/yarn-lock-dedupe"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fanatid/yarn-lock-cleaner.git"
+    "url": "https://github.com/fanatid/yarn-lock-dedupe.git"
   },
   "scripts": {
     "lint": "standard",
     "test": "npm run lint && npm run unit",
-    "unit": "tape test/index.js"
+    "unit": "tape test/*.js"
   },
   "dependencies": {
     "@yarnpkg/lockfile": "^1.1.0",
