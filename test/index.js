@@ -1,5 +1,5 @@
-const test = require('tape')
 const fs = require('fs')
+const test = require('tape')
 const transform = require('../')
 
 test('transform', (t) => {

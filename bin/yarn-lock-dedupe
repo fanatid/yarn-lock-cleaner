@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs')
 const yargs = require('yargs')
-const transform = require('../lib')
+const dedupe = require('../lib')
 
 const { argv } = yargs
   .usage('Usage: $0 [options]')
@@ -19,6 +19,6 @@ const { argv } = yargs
   })
   .help('help').alias('help', 'h')
 
-const content = transform(fs.readFileSync(argv.filename, 'utf8'))
+const content = dedupe(fs.readFileSync(argv.filename, 'utf8'))
 if (argv.rewrite) fs.writeFileSync(argv.filename, content, 'utf8')
 else process.stdout.write(content)
